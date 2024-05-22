@@ -1,0 +1,2 @@
+to create a prod build that will put the webpack bundle into wwwroot use the following command:
+npx webpack --config webpack.config.js --mode production

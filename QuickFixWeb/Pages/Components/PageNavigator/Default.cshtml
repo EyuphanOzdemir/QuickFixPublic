@@ -1,0 +1,22 @@
+﻿@model PageNavigatorModel
+@using QuickFixWeb.Model
+
+@{
+    var noPrevious = !(Model.PageIndex > 1);
+    var noNext = !(Model.PageIndex < Model.PageCount);
+}
+
+<div class="d-flex justify-content-between align-items-center bg-light p-3 rounded shadow-sm mb-3">
+    <div>
+        <p class="mb-0">Page @Model.PageIndex / @Model.PageCount (Total Rows: @Model.RowCount)</p>
+    </div>
+    <div>
+        <button id="firstPagerButton" name="firstPagerButton" class="btn btn-primary me-2" disabled="@noPrevious" onclick="updatePage(event,'first', '@Model.SearchButtonName', @Model.PageIndex, '@Model.PageInputName', @Model.PageCount)">First</button>
+        <button id="previousPagerButton" name="previousPagerButton" class="btn btn-primary me-2" disabled="@noPrevious" onclick="updatePage(event,'previous', '@Model.SearchButtonName', @Model.PageIndex, '@Model.PageInputName', @Model.PageCount)">Previous</button>
+        <button id="nextPagerButton" name="nextPagerButton" class="btn btn-primary me-2" disabled="@noNext" onclick="updatePage(event,'next', '@Model.SearchButtonName', @Model.PageIndex, '@Model.PageInputName', @Model.PageCount)">Next</button>
+        <button id="lastPagerButton" name="lastPagerButton" class="btn btn-primary" disabled="@noNext" onclick="updatePage(event,'last', '@Model.SearchButtonName', @Model.PageIndex, '@Model.PageInputName', @Model.PageCount)">Last</button>
+    </div>
+</div>
+<input type="text" class="form-control" id="Searcher" name="Searcher" hidden>
+<script src="~/js/pager.js"></script>
+<script>reset();</script>

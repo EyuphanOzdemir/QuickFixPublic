@@ -1,0 +1,17 @@
+﻿@page
+@using QuickFixWeb.Model;
+@model AddFixModel
+@{
+    ViewData["Title"] = "Add Fix";
+}
+<h1 id="title">Add Fix</h1>
+
+<form method="post" id="upsertFormMain">
+    @await Html.PartialAsync("_UpsertFix",new UpsertFixModel() {FixDto = Model.FixDto})
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/UpsertFix.js"></script>
+    <script src="~/js/pickupList.js"></script>
+}

@@ -1,0 +1,146 @@
+﻿@page
+@using QuickFixWeb.Components
+@using QuickFixWeb.Model
+@using QuickFixWeb.ViewComponents
+@model FixListModel
+@{
+    ViewData["Title"] = "Fix List";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>Fix List</h1>
+        <a asp-page="/Fix/AddFix" class="btn btn-primary">Add a new fix</a>
+    </div>
+
+    <form method="get" id="searchForm">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select asp-for="@Model.SearchFixParams.Category" asp-items="@Model.CategoryList" class="form-control">
+                        <option value="">Select an option</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Author:</label>
+                    <input type="text" class="form-control" asp-for="@Model.SearchFixParams.Author"
+                           onkeyup="searchTermKeyup('Author', 'suggestionPanelAuthor', 'suggestionListAuthor', this.id, this.value, '/Fix/Suggestions/SuggestionsPartial')">
+                    <div id="suggestionPanelAuthor"></div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Tags:</label>
+                    <input type="text" class="form-control" asp-for="@Model.SearchFixParams.Tag"
+                           onkeyup="searchTermKeyup('Tag', 'suggestionPanelTags', 'suggestionListTags', this.id, this.value, '/Fix/Suggestions/SuggestionsPartial')">
+                    <div id="suggestionPanelTags"></div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" class="form-control" asp-for="@Model.SearchFixParams.Title">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Solution:</label>
+                    <input type="text" class="form-control" asp-for="@Model.SearchFixParams.Solution">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mt-4" id="searchButton">Search</button>
+                    <a asp-route-SearchFixParams.Author="@User?.Claims.FirstOrDefault(claim => claim.Type == "name").Value" class="btn btn-primary mt-4 btn-link" style="color: yellow;">My Fixes</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mt-4">
+                <input type="text" class="form-control" asp-for="@Model.SearchFixParams.PageId" hidden>
+                @await Component.InvokeAsync("PageNavigator",
+                         new PageNavigatorModel()
+                {
+                    RowCount = Model.RowCount,
+                    PageCount = Model.PageCount,
+                    PageIndex = Model.SearchFixParams.PageId,
+                    PageInputName = "SearchFixParams_PageId",
+                    SearchButtonName = "searchButton"
+                })
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Title</th>
+                    <th>Tags</th>
+                    <th>Create Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fixDto in Model.FixDtoList)
+                {
+                    <tr>
+                        <td>
+                            <a asp-route-SearchFixParams.Category=@fixDto.Category>@fixDto.Category</a>
+                        </td>
+                        <td>
+                            <a asp-route-SearchFixParams.Author=@fixDto.Author>@fixDto.Author</a>
+                        </td>
+                        <td>
+                            <a asp-route-SearchFixParams.Title=@fixDto.Title>@fixDto.Title</a>
+                        </td>
+                        <td>
+                            <div>
+                                <ul asp-for="FixDto.Tags" id="stringList">
+                                    @foreach (var tag in @fixDto.Tags)
+                                    {
+                                        <li><a asp-route-SearchFixParams.Tag=@tag>@tag</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            @fixDto.CreateDate
+                        </td>
+                        <td>
+                            <div class="mb-2">
+                                <a asp-page="/Fix/DisplayFix" asp-route-Id="@fixDto.Id" class="btn btn-info btn-sm btn-block">Display</a>
+                            </div>
+                            @if (User.Identity.IsAuthenticated && User.Identity.Name.Equals(fixDto.Email))
+                            {
+                                <div class="mb-2">
+                                    <a asp-page="/Fix/EditFix" asp-route-Id="@fixDto.Id" class="btn btn-warning btn-sm btn-block">Edit</a>
+                                </div>
+                                <div>
+                                    <form method="post" asp-area="" asp-page="/Fix/DeleteFix" asp-route-Id="@fixDto.Id" id="deleteFixForm">
+                                        <button type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
+                                    </form>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/pickupList.js"></script>
+}

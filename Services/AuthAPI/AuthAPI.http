@@ -1,0 +1,21 @@
+@AuthAPI_HostAddress = http://localhost:5251
+###
+POST {{AuthAPI_HostAddress}}/api/auth/register
+Content-Type:application/json
+
+{
+  "email": "ozdemireyuphan@gmail.com",
+  "name": "eyuphan",
+  "phoneNumber": "215422",
+  "password": "Yarasa13_",
+  "role": "admin"
+}
+###
+POST {{AuthAPI_HostAddress}}/api/auth/login
+Content-Type:application/json
+
+{
+  "userName": "ozdemireyuphan@gmail.com",
+  "password": "Yarasa13_"
+}
+###

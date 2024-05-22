@@ -1,0 +1,27 @@
+﻿@page
+@using QuickFixWeb.Components
+@using QuickFixWeb.ViewComponents
+@model QuickFixWeb.Pages.Playground.PlaygroundModel
+@{
+}
+
+<div class="form-group">
+    <input class="form-control" type="text" id="suggestionEdit" onkeyup="searchTermKeyup('suggestionPanel', 'suggestionList', 'suggestionEdit', this.value, '/Index/SuggestionsPartial')" placeholder="Enter your search query" />
+    <div id="suggestionPanel"></div>
+</div>
+
+<div class="form-group">
+    <input class="form-control" type="text" id="suggestionEdit2" onkeyup="searchTermKeyup('suggestionPanel2', 'suggestionList2', 'suggestionEdit2', this.value, '/Index/SuggestionsPartial')" placeholder="Enter your search query2" />
+    <div id="suggestionPanel2"></div>
+</div>
+
+
+<component type="typeof(Pager)" render-mode=ServerPrerendered
+           param-pageNumber="1" param-totalRecords="100" param-pageSize="20" param-linkUrl="@Url.PageLink("Index")" />
+
+@(await Html.RenderComponentAsync<Pager>(RenderMode.ServerPrerendered, new { pageNumber = 10, totalRecords = 150, pageSize = 20, linkUrl = Url.PageLink("Index") }))
+
+@await Component.InvokeAsync("Users", "eyuphan1")
+<vc:Users x="eyuphan2" />
+
+<script src="~/js/pickupList.js"></script>

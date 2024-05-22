@@ -1,0 +1,9 @@
+﻿@using QuickFixWeb.Model
+@model SuggestionListModel
+
+<ul id="@Model.SuggestionList" style="list-style: none;">
+    @foreach (var suggestion in Model.Suggestions)
+    {
+        <li onClick="itemClicked('@Model.SuggestionList', '@Model.SuggestionEdit', this.textContent)">@suggestion</li>
+    }
+</ul>

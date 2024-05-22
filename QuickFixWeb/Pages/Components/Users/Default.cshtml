@@ -1,0 +1,9 @@
+﻿@model List<string>
+<h3>Users</h3>
+<p>@Model.Count()</p>
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@user</li>
+    }
+</ul>

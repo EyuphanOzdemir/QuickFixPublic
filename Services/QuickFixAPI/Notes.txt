@@ -1,0 +1,7 @@
+﻿//AtlasMondoDB//
+//Connection string
+mongodb+srv://ozdemireyuphan:Yarasa13_@clustereo.rt4mwg6.mongodb.net/?retryWrites=true&w=majority&appName=ClusterEO
+//user:ozdemireyuphan, password:Yarasa13_
+//Docker build command
+docker build -t containername/tag -f Services/QuickFixAPI/Dockerfile .
+//Run the image from Docker by assigning host port

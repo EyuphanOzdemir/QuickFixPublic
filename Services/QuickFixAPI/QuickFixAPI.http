@@ -1,0 +1,19 @@
+@QuickFixAPI_HostAddress = http://localhost:5009
+
+GET {{QuickFixAPI_HostAddress}}/Api/Fix/
+Accept: application/json
+
+###
+POST {{QuickFixAPI_HostAddress}}/Api/Fix/
+Accept: application/json
+
+{
+  "category": "Art",
+  "author": "Eyuphan",
+  "title": "Sanane",
+  "solution": "Sol",
+  "tags": [
+    "tag1",
+    "tag2"
+  ]
+}

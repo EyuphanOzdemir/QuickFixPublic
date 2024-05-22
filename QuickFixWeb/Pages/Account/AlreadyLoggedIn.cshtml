@@ -1,0 +1,9 @@
+﻿@page
+@model QuickFixWeb.Pages.Account.AlreadyLoggedInModel
+@{
+
+}
+<span>@Model.Message></span>
+<form method="post" asp-area="" asp-page="/Account/Logout" id="logoutForm">
+    <button type="submit" class="nav-link btn btn-link text-dark" id="logout">Sign out</button>
+</form>

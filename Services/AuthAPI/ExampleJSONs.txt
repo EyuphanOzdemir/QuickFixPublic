@@ -1,0 +1,14 @@
+﻿//register
+{
+  "email": "ozdemireyuphan@gmail.com",
+  "name": "eyuphan",
+  "phoneNumber": "215422",
+  "password": "Yarasa13_",
+  "role": "admin"
+}
+
+//login
+{
+  "userName": "ozdemireyuphan@gmail.com",
+  "password": "Yarasa13_"
+}

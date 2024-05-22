@@ -1,0 +1,10 @@
+﻿[
+  {
+    "name": "MVC",
+    "id": 1
+  },
+  {
+    "name": "Razor Pages",
+    "id": 2
+  }
+]
